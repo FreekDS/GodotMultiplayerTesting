@@ -14,6 +14,7 @@ var timeDelta = 0
 #export(NodePath) onready var camera = get_node(camera) as Camera
 onready var camera = get_node("CameraOrbit")
 onready var mesh = get_node("Skeleton/MeshInstance")
+onready var dino = get_node("dino_tersogo")
 
 export(NodePath) onready var movement_tween = get_node(movement_tween) as Tween
 
@@ -50,6 +51,13 @@ func jump_pressed():
 
 func _physics_process(delta):
 	timeDelta += delta
+	
+	if abs(vel.x) >= 0.1 or abs(vel.z) >= 0.1:
+		print("he", vel)
+		dino.AnimationPlayer.play("walk this wae talk this wae")
+	else:
+#		print("he", vel)
+		dino.AnimationPlayer.stop()
 	
 	vel.x = 0
 	vel.z = 0
