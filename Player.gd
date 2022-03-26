@@ -53,7 +53,6 @@ func _physics_process(delta):
 	timeDelta += delta
 	
 	if abs(vel.x) >= 0.1 or abs(vel.z) >= 0.1:
-		print("he", vel)
 		dino.AnimationPlayer.play("walk this wae talk this wae")
 	else:
 #		print("he", vel)
@@ -89,6 +88,9 @@ func _physics_process(delta):
 	if timeDelta >= tickRate:
 		_on_NetworkTickRate_timeout()
 		timeDelta = 0
+		
+	if global_transform.origin.y < -100:
+		global_transform.origin = Vector3(0, 15, 0)
 
 # Puppet function: other players, not this one
 puppet func update_state(p_pos, p_vel, p_rot):

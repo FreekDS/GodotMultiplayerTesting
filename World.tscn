@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://NetworkLobby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mapje2/mapje.tscn" type="PackedScene" id=3]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 40, 40 )
@@ -21,6 +22,7 @@ light_color = Color( 0.941176, 0.929412, 0.721569, 1 )
 shadow_enabled = true
 
 [node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -79.8633, 0, 0 )
 
 [node name="GroundMesh" type="MeshInstance" parent="Ground"]
 mesh = SubResource( 1 )
@@ -34,3 +36,6 @@ shape = SubResource( 3 )
 [node name="NetworkSetup" parent="." instance=ExtResource( 2 )]
 
 [node name="Players" type="Spatial" parent="."]
+
+[node name="mapje" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, -20, 0 )
