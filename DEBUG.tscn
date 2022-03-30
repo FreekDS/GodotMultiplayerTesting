@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+
+[sub_resource type="ProceduralSky" id=5]
+
+[sub_resource type="Environment" id=6]
+background_mode = 2
+background_sky = SubResource( 5 )
+ambient_light_color = Color( 0.305882, 0.305882, 0.305882, 1 )
+fog_enabled = true
+fog_color = Color( 0.321569, 0.470588, 0.623529, 1 )
+fog_sun_color = Color( 0.976471, 0.854902, 0.0705882, 1 )
+fog_depth_begin = 0.0
+fog_depth_end = 500.0
+ss_reflections_enabled = true
+ssao_enabled = true
+ssao_intensity = 2.0
+ssao_radius2 = 2.0
+ssao_intensity2 = 2.0
+glow_enabled = true
+adjustment_enabled = true
+adjustment_saturation = 1.2
+
+[sub_resource type="CubeMesh" id=7]
+size = Vector3( 20, 0.1, 20 )
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.0431373, 0.380392, 0.117647, 1 )
+
+[sub_resource type="ConvexPolygonShape" id=9]
+points = PoolVector3Array( -10, -0.05, -10, -10, 0.05, -10, 10, -0.05, -10, -10, -0.05, 10, -10, 0.05, 10, 10, 0.05, -10, 10, -0.05, 10, 10, 0.05, 10 )
+
+[node name="DEBUG" type="Spatial"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 6 )
+
+[node name="Ground" type="StaticBody" parent="."]
+transform = Transform( 10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Ground"]
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ground"]
+shape = SubResource( 9 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7501, 0 )

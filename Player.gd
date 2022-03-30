@@ -11,9 +11,10 @@ var puppet_rotation = Vector3.ZERO
 
 var timeDelta = 0
 
+
 #export(NodePath) onready var camera = get_node(camera) as Camera
 onready var camera = get_node("CameraOrbit")
-onready var mesh = get_node("Skeleton/MeshInstance")
+onready var mesh = get_node("idk/MeshInstance")
 onready var dino = get_node("dino_tersogo")
 
 export(NodePath) onready var movement_tween = get_node(movement_tween) as Tween
@@ -27,11 +28,11 @@ func set_color(color):
 
 
 puppet func initialize(color):
-	if is_network_master():
+	if Network.is_master():
 		set_color(color)
 
 func get_input() -> Vector3:
-	if not is_network_master():
+	if Network.is_networked() and not is_network_master():
 		return Vector3.ZERO
 	var inp = Vector3.ZERO
 	if Input.is_action_pressed("move_forward"):
@@ -45,7 +46,7 @@ func get_input() -> Vector3:
 	return inp.normalized()
 
 func jump_pressed():
-	if not is_network_master():
+	if Network.is_networked() and not is_network_master():
 		return false
 	return Input.is_action_pressed("jump") and is_on_floor()
 
@@ -72,7 +73,7 @@ func _physics_process(delta):
 	if jump_pressed():
 		vel.y = jumpForce
 	
-	if not is_network_master():
+	if Network.is_networked() and !is_network_master():
 		
 		global_transform.origin = puppet_position
 		
@@ -90,7 +91,7 @@ func _physics_process(delta):
 		timeDelta = 0
 		
 	if global_transform.origin.y < -100:
-		global_transform.origin = Vector3(0, 15, 0)
+		global_transform.origin = Vector3(0, 50, 0)
 
 # Puppet function: other players, not this one
 puppet func update_state(p_pos, p_vel, p_rot):
@@ -106,6 +107,6 @@ puppet func update_state(p_pos, p_vel, p_rot):
 
 
 func _on_NetworkTickRate_timeout():
-	if is_network_master():
+	if Network.is_networked() and is_network_master():
 		rpc_unreliable("update_state", global_transform.origin, vel, Vector2(camera.rotation.x, rotation.y))
 

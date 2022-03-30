@@ -11,13 +11,13 @@ onready var player = get_parent()
 
 
 func _ready():
-	if is_network_master():
+	if not Network.is_networked() or is_network_master():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		mouseCaptured = true
 
 
 func _input(event):
-	if not is_network_master():
+	if Network.is_networked() and not is_network_master():
 		return
 	if event is InputEventMouseMotion:
 		mouseDelta = event.relative

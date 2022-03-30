@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Networking Test"
-run/main_scene="res://World.tscn"
+run/main_scene="res://UIs/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]

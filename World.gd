@@ -14,6 +14,9 @@ func _ready():
 	
 	if get_tree().network_peer != null:
 		Global.emit_signal("toggle_network_setup", false)
+	print("jep, init")
+	
+	Global.emit_signal("instance_player", get_tree().get_network_unique_id())
 
 
 func _player_connected(id):

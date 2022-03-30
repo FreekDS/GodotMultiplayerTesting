@@ -66,3 +66,11 @@ func _player_connected(id):
 func _exit_tree():
 	if upnp:
 		upnp.delete_port_mapping(DEFAULT_PORT)
+		
+func is_master():
+	if is_networked():
+		return is_network_master()
+	return false
+
+func is_networked():
+	return get_tree().network_peer != null
