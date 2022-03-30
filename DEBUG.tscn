@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sneeuwballen/snowballs.tscn" type="PackedScene" id=2]
 
 [sub_resource type="ProceduralSky" id=5]
 
@@ -48,3 +49,6 @@ shape = SubResource( 9 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7501, 0 )
+
+[node name="Snowballs" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, -2.67589, -0.11623, 5.85897 )
